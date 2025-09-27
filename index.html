@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘燊教授 - 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+            height: 100%;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 导航栏样式 */
+        .nav-container {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2a7ae2;
+        }
+        
+        /* 高亮当前页面 */
+        .nav-links a.active {
+            color: #2a7ae2;
+            font-weight: bold;
+        }
+        
+        /* 英雄区域样式 */
+        .hero-section {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: url('background1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+            z-index: 0;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            max-width: 800px;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-button {
+            display: inline-block;
+            background-color: #52c41a;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .hero-button:hover {
+            background-color: #73d13d;
+            transform: translateY(-2px);
+        }
+        
+        /* 内容区域样式 */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            flex: 1;
+        }
+        
+        /* 个人简介部分 */
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .profile-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .profile-content {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #52c41a 0%, #73d13d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .profile-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        /* 个人信息卡片 */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .info-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-card h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #52c41a;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 研究兴趣部分 */
+        .research-section {
+            margin-bottom: 60px;
+        }
+        
+        .research-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .research-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .research-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .research-content {
+            padding: 20px;
+        }
+        
+        .research-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .research-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 主要成就部分 */
+        .achievements-section {
+            margin-bottom: 60px;
+        }
+        
+        .achievements-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .achievements-list {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .achievement-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .achievement-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .achievement-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .achievement-date {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 教育背景部分 */
+        .education-section {
+            margin-bottom: 60px;
+        }
+        
+        .education-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .education-list {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .education-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .education-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background-color: #52c41a;
+            border-radius: 50%;
+        }
+        
+        .education-item:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background-color: #eee;
+        }
+        
+        .education-item:last-child:after {
+            display: none;
+        }
+        
+        .education-degree {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .education-institution {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .education-period {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+         /* 页脚样式 */
+        footer {
+            background-color: #4255BD;
+            color: #CCCCCC;
+            height:30%;
+            display:flex;
+            justify-content:center;
+            align-items: center;
+            font-size: 14px;
+
+}
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero-section {
+                height: 80vh;
+                min-height: 500px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .content-container {
+                padding: 30px 15px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .profile-section {
+                gap: 20px;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .hero-button {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            .info-cards,
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav">
+            <div class="logo">
+                <img src="images\logo.png" alt="安徽农业大学校徽">
+                <h1>量子认知与心理交叉研究课题组</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">首页</a>
+                <a href="Achievements.html">研究成果</a>
+                <a href="team_members.html">研究团队</a>
+                <a href="TeachWork.html">教学工作</a>
+                <a href="research_group_news.html">学术动态</a>
+                <a href="Contact.html">联系我们</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 英雄区域 -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">刘燊 教授</h1>
+            <p class="hero-subtitle">安徽农业大学社会科学学院 教授 | 量子认知与心理交叉研究专家</p>
+            <a href="#profile" class="hero-button">了解更多</a>
+        </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="content-container">
+        <!-- 个人简介部分 -->
+        <section id="profile" class="profile-section">
+            <div class="profile-image">
+                <img src="images\photo.png" alt="刘燊教授">
+            </div>
+            <div class="profile-content">
+                <h2 class="section-title">个人简介</h2>
+                <p class="profile-text">刘燊，博士，安徽农业大学社会科学学院教授，量子认知与心理交叉研究课题组负责人，数据挖掘领域专家。曾在KDD CUP、WSDM CUP等国内外数据挖掘竞赛中取得优异成绩，现任Kaggle Expert。</p>
+                <p class="profile-text">主要研究方向包括量子认知理论、决策心理学、人工智能应用等。主持国家自然科学基金项目1项，省部级科研项目3项。在国内外重要学术期刊发表论文40余篇，其中SCI/SSCI收录20余篇。</p>
+                <p class="profile-text">刘教授致力于将量子力学的数学框架与认知科学的理论相结合，为理解人类决策、判断和认知过程提供新的视角和方法，研究成果在学术界产生了广泛影响。</p>
+            </div>
+        </section>
+        
+        <!-- 个人信息卡片 -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>基本信息</h3>
+                <div class="info-item">
+                    <span class="info-label">姓名</span>
+                    <span class="info-value">刘燊</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">职称</span>
+                    <span class="info-value">教授</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">所属机构</span>
+                    <span class="info-value">安徽农业大学社会科学学院</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">邮箱</span>
+                    <span class="info-value">liushen@ahau.edu.cn</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>研究方向</h3>
+                <div class="info-item">
+                    <span class="info-value">• 量子认知理论</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 决策心理学</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 人工智能应用</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 数据挖掘</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 复杂系统分析</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>学术兼职</h3>
+                <div class="info-item">
+                    <span class="info-value">• Kaggle Expert</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 中国心理学会会员</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 中国人工智能学会会员</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">• 多个SCI/SSCI期刊审稿人</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 研究兴趣部分 -->
+        <section class="research-section">
+            <div class="research-header">
+                <h2 class="section-title">研究兴趣</h2>
+            </div>
+            <div class="research-grid">
+                <div class="research-card">
+                    <img src="images\p1.jpg" alt="量子认知理论" class="research-image">
+                    <div class="research-content">
+                        <h3 class="research-title">量子认知理论</h3>
+                        <p class="research-description">探索量子力学的数学框架在解释人类认知现象中的应用，开发基于量子原理的认知模型，特别关注认知偏差和判断决策中的不确定性。</p>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <img src="images\p2.jpg" alt="决策心理学" class="research-image">
+                    <div class="research-content">
+                        <h3 class="research-title">决策心理学</h3>
+                        <p class="research-description">研究人类在不确定条件下的决策行为，应用量子概率模型解释传统经济学难以解释的决策悖论，为行为经济学提供新的理论基础。</p>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <img src="images\p3.jpg" alt="人工智能应用" class="research-image">
+                    <div class="research-content">
+                        <h3 class="research-title">人工智能应用</h3>
+                        <p class="research-description">将量子认知理论应用于人工智能领域，开发具有类人决策能力的智能系统和算法，探索量子机器学习在复杂问题解决中的潜力。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 主要成就部分 -->
+        <section class="achievements-section">
+            <div class="achievements-header">
+                <h2 class="section-title">主要成就</h2>
+            </div>
+            <div class="achievements-list">
+                <div class="achievement-item">
+                    <div class="achievement-title">国家自然科学基金项目（2024-2027）</div>
+                    <div class="achievement-date">2024年</div>
+                    <div class="achievement-description">主持国家自然科学基金项目"量子认知理论在决策心理学中的应用研究"，项目编号：72371001，经费60万元。</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-title">KDD CUP数据挖掘竞赛金奖</div>
+                    <div class="achievement-date">2023年</div>
+                    <div class="achievement-description">在国际顶级数据挖掘竞赛KDD CUP中带领团队获得金奖，开发了基于量子概率模型的异常检测算法。</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-title">安徽省学术技术带头人后备人选</div>
+                    <div class="achievement-date">2022年</div>
+                    <div class="achievement-description">被评为安徽省学术技术带头人后备人选，表彰在量子认知交叉研究领域的突出贡献。</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-title">发表高水平学术论文</div>
+                    <div class="achievement-date">2018-2025年</div>
+                    <div class="achievement-description">在《Quantum Cognition》、《Journal of Mathematical Psychology》、《Computational Intelligence》等国内外重要学术期刊发表论文40余篇，其中SCI/SSCI收录20余篇。</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 教育背景部分 -->
+        <section class="education-section">
+            <div class="education-header">
+                <h2 class="section-title">教育背景</h2>
+            </div>
+            <div class="education-list">
+                <div class="education-item">
+                    <div class="education-degree">博士，计算机科学与技术</div>
+                    <div class="education-institution">中国科学技术大学</div>
+                    <div class="education-period">2012-2017年</div>
+                </div>
+                <div class="education-item">
+                    <div class="education-degree">硕士，应用数学</div>
+                    <div class="education-institution">南京大学</div>
+                    <div class="education-period">2009-2012年</div>
+                </div>
+                <div class="education-item">
+                    <div class="education-degree">学士，数学与应用数学</div>
+                    <div class="education-institution">安徽大学</div>
+                    <div class="education-period">2005-2009年</div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>© Shen Liu 2024-2025. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 滚动效果
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            
+            // 更新导航栏阴影效果
+            const navContainer = document.querySelector('.nav-container');
+            if (scrollTop > 50) {
+                navContainer.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.15)';
+            } else {
+                navContainer.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
